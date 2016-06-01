@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore, compose } from 'redux'
 import reducer from './reducer'
 import communication from './communication'
+import { setupWebsocketConnection } from './actions'
 
 const finalCreateStore = compose(
   applyMiddleware(
@@ -11,6 +12,8 @@ const finalCreateStore = compose(
 
 export default (initialState) => {
   const store = finalCreateStore(reducer, initialState)
+
+  store.dispatch(setupWebsocketConnection('ws://localhost:8080'))
 
   return store
 }

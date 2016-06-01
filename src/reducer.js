@@ -4,8 +4,9 @@ const initialState = {
   key: uuid.v4(),
   text: 'echo Hola Mundo',
   workingDirectory: '/',
-  server: 'ws://localhost:8080',
-  results: []
+  server: undefined,
+  results: [],
+  suggestions: []
 }
 
 export default (state = initialState, action = {}) => {
@@ -24,9 +25,15 @@ export default (state = initialState, action = {}) => {
             ? { ...result, raw: result.raw + action.payload.data }
             : result
         ),
-        workingDirectory: action.payload.currentWorkingDirectory
-          ? action.payload.currentWorkingDirectory
+        workingDirectory: action.payload.workingDirectory
+          ? action.payload.workingDirectory
           : state.workingDirectory
+      }
+
+    case 'NEW_SUGGESTIONS':
+      return {
+        ...state,
+        suggestions: action.payload
       }
 
     case 'SUBMIT':
@@ -38,6 +45,12 @@ export default (state = initialState, action = {}) => {
           raw: ''
         }),
         text: ''
+      }
+
+    case 'SETUP_WEBSOCKET_CONNECTION':
+      return {
+        ...state,
+        server: action.payload.url
       }
 
     default:

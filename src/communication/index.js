@@ -1,36 +1,46 @@
-/* global WebSocket */
-import { commandStdOutput } from '../actions'
+import onSubmit from './onSubmit'
+import Socket from '../lib/Socket'
+import { newSuggestions } from '../actions'
 
-const submit = (url, action, callback) => {
-  const ws = new WebSocket(url)
+let socket
 
-  ws.onmessage = (...xs) => {
-    console.log('HELLO?')
-    callback(...xs)
-  }
+const setupConnection = (url, dispatch) => {
+  socket = new Socket(url)
 
-  ws.onopen = () => ws.send(JSON.stringify(action))
+  socket.on('message', ({ data }) => {
+    const { type, payload } = JSON.parse(data)
+
+    if (type === 'NEW_SUGGESTIONS') {
+      dispatch(newSuggestions(payload))
+    }
+  })
 }
-
-const handleMessage = (dispatch) => (message) =>
-  dispatch(commandStdOutput(JSON.parse(message.data)))
 
 export default ({ getState, dispatch }) => (next) => (action) => {
   // This should just be a subscriber instead, reacting to the
   // existance of a new command in the list
   if (action.type === 'SUBMIT') {
-    const { key, server, text } = getState()
+    onSubmit(action, getState(), dispatch)
+  }
 
-    submit(
-      server,
-      {
-        key: action.payload.key,
-        command: text,
-        session: key,
-        currentWorkingDirectory: getState().workingDirectory
-      },
-      handleMessage(dispatch)
-    )
+  if (action.type === 'SETUP_WEBSOCKET_CONNECTION') {
+    setupConnection(action.payload.url, dispatch)
+  }
+
+  if (action.type === 'USER_INPUT') {
+    setTimeout(() => {
+      const { key, text, workingDirectory } = getState()
+      socket.send(
+        {
+          type: 'USER_INPUT',
+          payload: {
+            workingDirectory,
+            text,
+            session: key
+          }
+        }
+      )
+    })
   }
 
   next(action)

@@ -16,3 +16,15 @@ export const commandStdOutput = (payload) => ({
   type: 'COMMAND_STD_OUTPUT',
   payload
 })
+
+export const setupWebsocketConnection = (url) => ({
+  type: 'SETUP_WEBSOCKET_CONNECTION',
+  payload: {
+    url
+  }
+})
+
+export const newSuggestions = (suggestions) => ({
+  type: 'NEW_SUGGESTIONS',
+  payload: suggestions
+})
