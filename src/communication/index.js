@@ -43,5 +43,19 @@ export default ({ getState, dispatch }) => (next) => (action) => {
     })
   }
 
+  if (action.type === 'SET_SESSION') {
+    setTimeout(() => {
+      const { key } = getState()
+      socket.send(
+        {
+          type: 'GET_SESSION',
+          payload: {
+            session: key
+          }
+        }
+      )
+    })
+  }
+
   next(action)
 }

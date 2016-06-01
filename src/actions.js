@@ -33,3 +33,8 @@ export const acceptSuggestion = (suggestion) => ({
   type: 'ACCEPT_SUGGESTION',
   payload: suggestion
 })
+
+export const setSession = (sessionKey) => ({
+  type: 'SET_SESSION',
+  payload: sessionKey
+})

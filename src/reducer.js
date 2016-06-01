@@ -1,7 +1,5 @@
-import uuid from 'uuid'
-
 const initialState = {
-  key: uuid.v4(),
+  key: undefined,
   text: 'echo Hola Mundo',
   workingDirectory: '/',
   server: undefined,
@@ -55,6 +53,12 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         server: action.payload.url
+      }
+
+    case 'SET_SESSION':
+      return {
+        ...state,
+        key: action.payload
       }
 
     case 'ACCEPT_SUGGESTION':
