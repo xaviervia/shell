@@ -6,7 +6,10 @@ const initialState = {
   workingDirectory: '/',
   server: undefined,
   results: [],
-  suggestions: []
+  suggestions: {
+    context: undefined,
+    entries: []
+  }
 }
 
 export default (state = initialState, action = {}) => {
@@ -44,13 +47,20 @@ export default (state = initialState, action = {}) => {
           command: state.text,
           raw: ''
         }),
-        text: ''
+        text: '',
+        suggestions: initialState.suggestions
       }
 
     case 'SETUP_WEBSOCKET_CONNECTION':
       return {
         ...state,
         server: action.payload.url
+      }
+
+    case 'ACCEPT_SUGGESTION':
+      return {
+        ...state,
+        text: action.payload.replacementCommand
       }
 
     default:

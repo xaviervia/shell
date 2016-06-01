@@ -8,14 +8,20 @@ import Result from '../Result'
 
 import './styles.css'
 
-export default function App ({ actions, text, results, workingDirectory }) {
+export default function App ({ actions, text, results, workingDirectory, suggestions }) {
   return (
     <div>
       <Header
         onSubmit={actions.submit}
         onChange={(e) => actions.userInput(e.target.value)}
+        onSuggestionSelect={actions.acceptSuggestion}
         value={text}
         workingDirectory={workingDirectory}
+        suggestions={
+          suggestions.entries.length > 0
+            ? suggestions.entries
+            : undefined
+        }
       />
 
       <main className=''>
@@ -28,11 +34,13 @@ export default function App ({ actions, text, results, workingDirectory }) {
 App.propTypes = {
   actions: PropTypes.shape({
     userInput: PropTypes.func,
-    submit: PropTypes.func
+    submit: PropTypes.func,
+    acceptSuggestion: PropTypes.func
   }),
   results: PropTypes.array,
   text: PropTypes.string,
-  workingDirectory: PropTypes.string
+  workingDirectory: PropTypes.string,
+  suggestions: PropTypes.object
 }
 
 const mapStateToProps = (x) => x

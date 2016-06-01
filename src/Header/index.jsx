@@ -1,36 +1,20 @@
 import React, { PropTypes } from 'react'
+import Suggestions from '../Suggestions'
+import Input from '../Input'
 import './styles.css'
 
-const KEYS = {
-  ENTER: 13,
-  TAB: 9
-}
-
-const handleKeyDown = ({ onEnter, onTab }) => (e) => {
-  switch (e.keyCode) {
-    case KEYS.TAB: {
-      const direction = e.shiftKey ? -1 : 1
-      return onTab && onTab(direction, e)
-    }
-    case KEYS.ENTER: {
-      return onEnter && onEnter(e)
-    }
-  }
-}
-
-export default function Header ({ onChange, onSubmit, value, workingDirectory }) {
+export default function Header ({ onChange, onSubmit, onSuggestionSelect, value, workingDirectory, suggestions }) {
   return (
     <header className='' role='banner'>
       <label htmlFor='command' role='heading'>{workingDirectory}</label>
-      <input
-        autofocus
-        id='command'
-        role='search'
-        type='text'
+
+      <Input
         onChange={onChange}
-        onKeyDown={handleKeyDown({ onEnter: onSubmit })}
+        onEnter={onSubmit}
         value={value}
       />
+
+      {suggestions && <Suggestions onSelect={onSuggestionSelect} entries={suggestions} />}
     </header>
   )
 }
@@ -38,6 +22,8 @@ export default function Header ({ onChange, onSubmit, value, workingDirectory })
 Header.propTypes = {
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
+  onSuggestionSelect: PropTypes.func,
   value: PropTypes.string,
-  workingDirectory: PropTypes.string
+  workingDirectory: PropTypes.string,
+  suggestions: PropTypes.array
 }

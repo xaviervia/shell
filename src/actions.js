@@ -28,3 +28,8 @@ export const newSuggestions = (suggestions) => ({
   type: 'NEW_SUGGESTIONS',
   payload: suggestions
 })
+
+export const acceptSuggestion = (suggestion) => ({
+  type: 'ACCEPT_SUGGESTION',
+  payload: suggestion
+})

@@ -18,10 +18,13 @@
     "sagui": "^4.0.3"
   },
   "dependencies": {
+    "inherits": "^2.0.1",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "retry": "^0.9.0",
+    "tiny-emitter": "^1.0.2",
     "uuid": "^2.0.2"
   }
 }

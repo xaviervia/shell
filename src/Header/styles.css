@@ -1,6 +1,7 @@
 header[role='banner'] {
   background-color: #E0E0E0;
   color: #333333;
+  position: relative;
 }
 
 [role='heading'] {

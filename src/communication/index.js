@@ -27,7 +27,7 @@ export default ({ getState, dispatch }) => (next) => (action) => {
     setupConnection(action.payload.url, dispatch)
   }
 
-  if (action.type === 'USER_INPUT') {
+  if (action.type === 'USER_INPUT' || action.type === 'ACCEPT_SUGGESTION') {
     setTimeout(() => {
       const { key, text, workingDirectory } = getState()
       socket.send(
