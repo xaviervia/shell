@@ -1,0 +1,27 @@
+section {
+  border-bottom: .2rem dashed #3D3D3D;
+  color: #E0E0E0;
+  padding: 1rem 0 4rem;
+  margin-bottom: -.2rem;
+}
+
+section:last-child {
+  border: none;
+}
+
+code[aria-multiline] {
+  display: block;
+  font-family: Inconsolata, monospace;
+  font-size: 2.8rem;
+  padding: .6rem 0 .4rem 4rem;
+  white-space: pre;
+  width: 100%;
+}
+
+h2 {
+  font-family: Inconsolata, monospace;
+  font-size: 2.8rem;
+  font-weight: normal;
+  margin: 0;
+  padding: 2.6rem 0 1.4rem 4rem;
+}

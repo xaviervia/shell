@@ -1,0 +1,32 @@
+header[role='banner'] {
+  background-color: #E0E0E0;
+  color: #333333;
+}
+
+[role='heading'] {
+  color: #707070;
+  display: block;
+  font-family: Inconsolata, monospace;
+  font-size: 2.2rem;
+  font-weight: normal;
+  height: 3.2rem;
+  margin: 0;
+  padding: 1.8rem 0 0 4rem;
+}
+
+input[role='search'] {
+  background: transparent;
+  border: none;
+  color: #333333;
+  font-family: Inconsolata, monospace;
+  font-size: 2.8rem;
+  height: 6rem;
+  line-height: 6rem;
+  margin: 0 0 1rem 0;
+  padding: .2rem 0 0rem 4rem;
+  width: 100%;
+}
+
+input[role='search']:focus {
+  outline: none;
+}
