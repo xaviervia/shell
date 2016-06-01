@@ -12,7 +12,7 @@ export const submit = () => ({
   }
 })
 
-export const commandInput = (payload) => ({
-  type: 'COMMAND_INPUT',
+export const commandStdOutput = (payload) => ({
+  type: 'COMMAND_STD_OUTPUT',
   payload
 })

@@ -3,7 +3,7 @@ import uuid from 'uuid'
 const initialState = {
   key: uuid.v4(),
   text: 'echo Hola Mundo',
-  workingDirectory: '~/Code/me/shell',
+  workingDirectory: '/',
   server: 'ws://localhost:8080',
   results: []
 }
@@ -16,14 +16,17 @@ export default (state = initialState, action = {}) => {
         text: action.payload
       }
 
-    case 'COMMAND_INPUT':
+    case 'COMMAND_STD_OUTPUT':
       return {
         ...state,
         results: state.results.map((result) =>
           result.key === action.payload.command
             ? { ...result, raw: result.raw + action.payload.data }
             : result
-        )
+        ),
+        workingDirectory: action.payload.currentWorkingDirectory
+          ? action.payload.currentWorkingDirectory
+          : state.workingDirectory
       }
 
     case 'SUBMIT':

@@ -1,5 +1,5 @@
 /* global WebSocket */
-import { commandInput } from '../actions'
+import { commandStdOutput } from '../actions'
 
 const submit = (url, action, callback) => {
   const ws = new WebSocket(url)
@@ -13,7 +13,7 @@ const submit = (url, action, callback) => {
 }
 
 const handleMessage = (dispatch) => (message) =>
-  dispatch(commandInput(JSON.parse(message.data)))
+  dispatch(commandStdOutput(JSON.parse(message.data)))
 
 export default ({ getState, dispatch }) => (next) => (action) => {
   // This should just be a subscriber instead, reacting to the
@@ -26,7 +26,8 @@ export default ({ getState, dispatch }) => (next) => (action) => {
       {
         key: action.payload.key,
         command: text,
-        session: key
+        session: key,
+        currentWorkingDirectory: getState().workingDirectory
       },
       handleMessage(dispatch)
     )
